@@ -161,7 +161,7 @@
       overflow: hidden;
     }
 
-    /* 상단 타이틀 바 구도 (메인과 완벽히 동기화된 반응형 크기, 잘림 방지) */
+    /* 상단 타이틀 바: 중앙 정렬 클럽명 */
     .club-title {
       position: relative;
       display: flex;
@@ -173,6 +173,7 @@
       gap: 4px;
     }
     .club-title-left {
+      width: 62px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -238,6 +239,7 @@
       justify-content: flex-end;
       gap: 3px;
       flex-shrink: 0;
+      width: 62px;
     }
 
     .rules-trigger-btn, .manual-trigger-btn {
@@ -262,7 +264,6 @@
       background: rgba(255, 255, 255, 0.25);
     }
 
-    /* 대회명 입력 및 우측 KDK 버튼 래퍼 (우측 세로 정렬선 일치) */
     .event-title-wrapper {
       margin-top: 5px;
       display: flex;
@@ -271,6 +272,10 @@
       width: 100%;
       padding: 0 2px;
       gap: 6px;
+    }
+    .event-title-spacer {
+      width: 50px;
+      flex-shrink: 0;
     }
     .event-title-input {
       flex: 1;
@@ -337,7 +342,6 @@
       100% { transform: translate(45px, -35px) scale(0); opacity: 0; }
     }
 
-    /* 메인 index.html과 정확히 동일한 탭 규격 (선수명단, 라운드 경기, 경기결과) */
     .tab-nav {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -455,7 +459,6 @@
       color: #1e293b;
     }
 
-    /* 선수 명단 1열 수평 배열 조 + 후보 */
     .entry-pair-row {
       display: flex;
       align-items: center;
@@ -561,7 +564,6 @@
       min-width: 0;
     }
 
-    /* 우리팀 이름 2열 큼지막하게 배치 (모바일에서 절대 잘리지 않도록 명확한 그리드와 폰트 보장) */
     .pair-name-box-2col {
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
@@ -583,7 +585,6 @@
       line-height: 1.25;
     }
 
-    /* 상대선수 이름 1열 (세로문구 '상대' 삭제됨) */
     .pair-name-box-1col {
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
@@ -821,7 +822,7 @@
         <span style="font-size: 9.5px; font-weight: 800; color: var(--accent);">⚡ 실시간연동</span>
       </div>
 
-      <!-- 상단 타이틀 바: 중앙 정렬 클럽명 + 우측 규칙/이용가이드 -->
+      <!-- 상단 타이틀 바: 중앙 정렬 클럽명 -->
       <div class="club-title">
         <div class="club-title-left">
           <button onclick="openThemeModal()" class="theme-trigger-btn" title="테마 변경">
@@ -847,22 +848,22 @@
         </div>
       </div>
 
-      <!-- 대회명 입력 라인: KDK 버튼을 우측 세로선(이용가이드와 일치)에 정렬 -->
       <div class="event-title-wrapper">
-        <div style="width: 28px; flex-shrink: 0;"></div>
+        <div style="width: 30px; flex-shrink: 0;"></div>
         <input 
           id="tournamentTitle" 
           type="text" 
           value="" 
           placeholder="대회명 입력 (예: 협회장배)"
-          oninput="handleTournamentTitleInput(this)"
+          oncompositionstart="window.isComposing=true"
+          oncompositionend="window.isComposing=false; handleTournamentTitleInput(this)"
+          oninput="if(!window.isComposing) handleTournamentTitleInput(this)"
           class="event-title-input"
         />
         <button onclick="handleNavigateToKdk()" class="btn-kdk-nav" title="클럽 KDK 매니저로 복귀">🏠 KDK</button>
       </div>
     </header>
 
-    <!-- 메인 index.html과 동일한 탭 규격 (선수명단, 라운드 경기, 경기결과) -->
     <nav class="tab-nav">
       <button id="tabBtn-entry" onclick="switchTournamentTab('entry')" class="tab-btn">
         <span>선수명단</span>
@@ -905,9 +906,9 @@
       <!-- [탭 1] 선수명단 등록 -->
       <section id="tab-entry" class="tab-section hidden">
         <div>
-          <div class="group-section-header">
+          <div id="entrySectionHeader" class="group-section-header">
             <span id="entryHeaderTitle">🟢 A팀 선수명단</span>
-            <span style="font-size: 10px; color: var(--primary); font-weight: 800;">조별 페어 + 후보</span>
+            <span id="entryHeaderSub" style="font-size: 10px; color: var(--primary); font-weight: 800;">조별 페어 + 후보</span>
           </div>
 
           <div id="entryInputsGrid" style="max-height: 330px; overflow-y: auto; padding-right: 2px;"></div>
@@ -934,7 +935,9 @@
                 id="opponentClubInput" 
                 type="text" 
                 placeholder="상대 클럽명" 
-                oninput="handleOpponentClubChange(this.value)"
+                oncompositionstart="window.isComposing=true"
+                oncompositionend="window.isComposing=false; handleOpponentClubChange(this.value)"
+                oninput="if(!window.isComposing) handleOpponentClubChange(this.value)"
                 style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 6px; font-size: 12px; font-weight: 800; width: 100%; max-width: 120px; outline: none; background: #ffffff;"
               />
             </div>
@@ -952,7 +955,7 @@
         </div>
       </section>
 
-      <!-- [탭 3] 경기결과 (A팀 또는 B팀 선택에 맞게 동적 연동) -->
+      <!-- [탭 3] 경기결과 -->
       <section id="tab-summary" class="tab-section hidden">
         <div>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 8px;">
@@ -1080,7 +1083,6 @@
     </div>
   </div>
 
-  <!-- [모달: 사진 및 파일 등록 / 보기] -->
   <div id="photosModal" class="modal-backdrop">
     <div class="modal-box" style="max-width: 380px;">
       <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">
@@ -1102,7 +1104,6 @@
     </div>
   </div>
 
-  <!-- [라이트박스] -->
   <div id="photoLightbox" class="modal-backdrop" style="z-index: 120; background: rgba(0,0,0,0.9); padding: 10px;" onclick="closePhotoLightbox()">
     <div style="position: relative; max-width: 95vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center;" onclick="event.stopPropagation();">
       <img id="lightboxImg" src="" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);" />
@@ -1160,6 +1161,7 @@
     let isRemoteUpdate = false;
     let syncDebounceTimer = null;
     let currentUserId = 'u_tour_' + Math.random().toString(36).substring(2, 9);
+    let isComposing = false;
 
     function showToast(msg) {
       const toast = document.getElementById('toast');
@@ -1343,6 +1345,7 @@
     };
 
     window.handleTournamentTitleInput = function(inputEl) {
+      if (isComposing) return;
       window.tourState.tournamentTitle = inputEl.value;
       saveTournamentState(false);
     };
@@ -1472,8 +1475,25 @@
       }
 
       const headerTitle = document.getElementById('entryHeaderTitle');
+      const entrySectionHeader = document.getElementById('entrySectionHeader');
+      const entryHeaderSub = document.getElementById('entryHeaderSub');
+
       if (headerTitle) {
         headerTitle.innerText = `${teamKey === 'A' ? '🟢 A팀' : '🟠 B팀'} 선수명단`;
+      }
+
+      if (entrySectionHeader) {
+        if (teamKey === 'B') {
+          entrySectionHeader.style.borderLeftColor = '#ea580c';
+          entrySectionHeader.style.background = '#fff7ed';
+          entrySectionHeader.style.color = '#9a3412';
+          if (entryHeaderSub) entryHeaderSub.style.color = '#ea580c';
+        } else {
+          entrySectionHeader.style.borderLeftColor = 'var(--primary)';
+          entrySectionHeader.style.background = '#f1f5f9';
+          entrySectionHeader.style.color = '#1e293b';
+          if (entryHeaderSub) entryHeaderSub.style.color = 'var(--primary)';
+        }
       }
 
       const grid = document.getElementById('entryInputsGrid');
@@ -1482,6 +1502,8 @@
         const activeId = activeEl ? activeEl.id : null;
 
         let html = '';
+        const badgeBg = (teamKey === 'B') ? '#ea580c' : 'var(--primary)';
+
         for (let p = 1; p <= pairCount; p++) {
           const idx1 = (p - 1) * 2;
           const idx2 = (p - 1) * 2 + 1;
@@ -1490,7 +1512,7 @@
 
           html += `
             <div class="entry-pair-row">
-              <div class="entry-pair-badge">A-${p}조</div>
+              <div class="entry-pair-badge" style="background: ${badgeBg};">${teamKey}-${p}조</div>
               <div class="entry-pair-input-box">
                 <input 
                   type="text" 
@@ -1498,7 +1520,9 @@
                   value="${val1}" 
                   maxlength="8" 
                   placeholder="선수명" 
-                  oninput="handleEntryPlayerInput(${idx1}, this.value)" 
+                  oncompositionstart="isComposing=true"
+                  oncompositionend="isComposing=false; handleEntryPlayerInput(${idx1}, this.value)"
+                  oninput="if(!isComposing) handleEntryPlayerInput(${idx1}, this.value)" 
                   class="entry-input"
                   autocomplete="off"
                 />
@@ -1511,7 +1535,9 @@
                   value="${val2}" 
                   maxlength="8" 
                   placeholder="선수명" 
-                  oninput="handleEntryPlayerInput(${idx2}, this.value)" 
+                  oncompositionstart="isComposing=true"
+                  oncompositionend="isComposing=false; handleEntryPlayerInput(${idx2}, this.value)"
+                  oninput="if(!isComposing) handleEntryPlayerInput(${idx2}, this.value)" 
                   class="entry-input"
                   autocomplete="off"
                 />
@@ -1532,7 +1558,9 @@
                 value="${res1}" 
                 maxlength="8" 
                 placeholder="후보1 선수명" 
-                oninput="handleReservePlayerInput(0, this.value)" 
+                oncompositionstart="isComposing=true"
+                oncompositionend="isComposing=false; handleReservePlayerInput(0, this.value)"
+                oninput="if(!isComposing) handleReservePlayerInput(0, this.value)" 
                 class="entry-input"
                 autocomplete="off"
               />
@@ -1545,7 +1573,9 @@
                 value="${res2}" 
                 maxlength="8" 
                 placeholder="후보2 선수명" 
-                oninput="handleReservePlayerInput(1, this.value)" 
+                oncompositionstart="isComposing=true"
+                oncompositionend="isComposing=false; handleReservePlayerInput(1, this.value)"
+                oninput="if(!isComposing) handleReservePlayerInput(1, this.value)" 
                 class="entry-input"
                 autocomplete="off"
               />
@@ -1566,6 +1596,7 @@
     }
 
     window.handleEntryPlayerInput = function(idx, val) {
+      if (isComposing) return;
       const teamData = getCurrentTeamData();
       teamData.players[idx] = val.trim();
       saveTournamentState(false);
@@ -1573,6 +1604,7 @@
     };
 
     window.handleReservePlayerInput = function(reserveIdx, val) {
+      if (isComposing) return;
       const teamData = getCurrentTeamData();
       if (!teamData.reserves) teamData.reserves = ['', ''];
       teamData.reserves[reserveIdx] = val.trim();
@@ -1724,7 +1756,9 @@
                     id="opp-player-${p-1}"
                     value="${m.oppP1 || ''}" 
                     placeholder="상대조 입력" 
-                    oninput="handleOppPlayerInput(${p - 1}, this.value)" 
+                    oncompositionstart="isComposing=true"
+                    oncompositionend="isComposing=false; handleOppPlayerInput(${p - 1}, this.value)"
+                    oninput="if(!isComposing) handleOppPlayerInput(${p - 1}, this.value)" 
                     class="pair-input-inline"
                     autocomplete="off"
                   />
@@ -1747,12 +1781,14 @@
     }
 
     window.handleOpponentClubChange = function(val) {
+      if (isComposing) return;
       const rData = getCurrentRoundData();
       rData.opponentClub = val.trim();
       saveTournamentState(false);
     };
 
     window.handleOppPlayerInput = function(matchIdx, val) {
+      if (isComposing) return;
       const rData = getCurrentRoundData();
       rData.matches[matchIdx].oppP1 = val.trim();
       saveTournamentState(false);
@@ -2188,7 +2224,6 @@
       showToast('저장 기록이 삭제되었습니다.');
     };
 
-    // 사진 저장 및 보기 모달 관련 함수 (최대 300장 보관)
     window.openPhotosModal = function() {
       renderPhotosGrid();
       document.getElementById('photosModal').classList.add('show');
@@ -2396,7 +2431,6 @@
         });
       } catch(e) {
         console.warn("Tournament cloud sync error:", e);
-        isCloudReady = false;
         setSyncLamp('offline');
       }
     }
