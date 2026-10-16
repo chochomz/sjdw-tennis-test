@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#064e3b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>세종 대왕테니스 클럽</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", Roboto, sans-serif;
+      touch-action: manipulation;
+    }
+
+    :root, body[data-theme="summer"] {
+      --bg-body: #064e3b;
+      --hdr-from: #022c22;
+      --hdr-to: #064e3b;
+      --accent: #bef264;
+      --primary: #15803d;
+      --primary-active: #166534;
+      --primary-light: #f0fdf4;
+      --border-accent: rgba(21, 128, 61, 0.4);
+    }
+    body[data-theme="summer_ocean"] {
+      --bg-body: #0c4a6e;
+      --hdr-from: #082f49;
+      --hdr-to: #0c4a6e;
+      --accent: #7dd3fc;
+      --primary: #0284c7;
+      --primary-active: #0369a1;
+      --primary-light: #f0f9ff;
+      --border-accent: rgba(2, 132, 199, 0.4);
+    }
+    body[data-theme="spring"] {
+      --bg-body: #831843;
+      --hdr-from: #4c0519;
+      --hdr-to: #831843;
+      --accent: #fbcfe8;
+      --primary: #be185d;
+      --primary-active: #9d174d;
+      --primary-light: #fdf2f8;
+      --border-accent: rgba(190, 24, 93, 0.4);
+    }
+    body[data-theme="spring_mint"] {
+      --bg-body: #134e4a;
+      --hdr-from: #042f2e;
+      --hdr-to: #134e4a;
+      --accent: #99f6e4;
+      --primary: #0d9488;
+      --primary-active: #0f766e;
+      --primary-light: #f0fdfa;
+      --border-accent: rgba(13, 148, 136, 0.4);
+    }
+    body[data-theme="autumn"] {
+      --bg-body: #7c2d12;
+      --hdr-from: #451a03;
+      --hdr-to: #7c2d12;
+      --accent: #fed7aa;
+      --primary: #c2410c;
+      --primary-active: #9a3412;
+      --primary-light: #fff7ed;
+      --border-accent: rgba(194, 65, 12, 0.4);
+    }
+    body[data-theme="autumn_amber"] {
+      --bg-body: #78350f;
+      --hdr-from: #451a03;
+      --hdr-to: #78350f;
+      --accent: #fde68a;
+      --primary: #d97706;
+      --primary-active: #b45309;
+      --primary-light: #fffbeb;
+      --border-accent: rgba(217, 119, 6, 0.4);
+    }
+    body[data-theme="winter"] {
+      --bg-body: #0f172a;
+      --hdr-from: #020617;
+      --hdr-to: #0f172a;
+      --accent: #7dd3fc;
+      --primary: #1d4ed8;
+      --primary-active: #1e40af;
+      --primary-light: #eff6ff;
+      --border-accent: rgba(29, 78, 216, 0.4);
+    }
+    body[data-theme="winter_charcoal"] {
+      --bg-body: #1e293b;
+      --hdr-from: #0f172a;
+      --hdr-to: #1e293b;
+      --accent: #e2e8f0;
+      --primary: #475569;
+      --primary-active: #334155;
+      --primary-light: #f8fafc;
+      --border-accent: rgba(71, 85, 105, 0.4);
+    }
+
+    body {
+      background-color: var(--bg-body);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 6px;
+      user-select: none;
+      -webkit-user-select: none;
+      overflow-x: hidden;
+      color: #0f172a;
+      transition: background-color 0.3s ease;
+    }
+
+    .app-card {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border-accent);
+      margin: auto 0;
+    }
+
+    .app-header {
+      background: linear-gradient(to bottom, var(--hdr-from), var(--hdr-to));
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 8px 12px 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .clock-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: rgba(0, 0, 0, 0.38);
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.25);
+      white-space: nowrap;
+      max-width: 100%;
+      letter-spacing: -0.3px;
+      overflow: hidden;
+    }
+
+    /* 상단 타이틀 바 구도 (메인과 완벽히 동기화된 반응형 크기, 잘림 방지) */
+    .club-title {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 6px;
+      padding: 0 2px;
+      gap: 4px;
+    }
+    .club-title-left {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-shrink: 0;
+    }
+    .club-title-center {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      text-align: center;
+    }
+
+    .theme-trigger-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      position: relative;
+      overflow: visible;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .club-title-text {
+      font-size: clamp(15px, 4.8vw, 18px);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+      overflow: visible;
+      color: #ffffff;
+      background: linear-gradient(
+        110deg,
+        #ffffff 0%,
+        #ffffff 35%,
+        #fef08a 45%,
+        #fbbf24 50%,
+        #fef08a 55%,
+        #ffffff 65%,
+        #ffffff 100%
+      );
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gold-shimmer 5s infinite linear;
+      display: inline-block;
+    }
+    @keyframes gold-shimmer {
+      0% { background-position: 150% 0; }
+      100% { background-position: -150% 0; }
+    }
+
+    .header-btns-group {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .rules-trigger-btn, .manual-trigger-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 6px;
+      border-radius: 9999px;
+      font-size: 9.5px;
+      font-weight: 800;
+      transition: background 0.2s ease, transform 0.1s ease;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .rules-trigger-btn:active, .manual-trigger-btn:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* 대회명 입력 및 우측 KDK 버튼 래퍼 (우측 세로 정렬선 일치) */
+    .event-title-wrapper {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 2px;
+      gap: 6px;
+    }
+    .event-title-input {
+      flex: 1;
+      text-align: center;
+      font-weight: 900;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      padding: 2px 4px;
+      font-size: 14.5px;
+      line-height: 1.2;
+      border-radius: 4px;
+      outline: none;
+      min-width: 110px;
+    }
+    .event-title-input::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 500;
+    }
+    .event-title-input:focus {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-kdk-nav {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid var(--border-accent);
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 9.5px;
+      font-weight: 800;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s ease;
+    }
+    .btn-kdk-nav:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .anim-racket {
+      transform-origin: 25px 35px;
+      animation: racket-hit 2s infinite ease-out;
+    }
+    .anim-ball {
+      animation: ball-fly 2s infinite ease-out;
+    }
+    @keyframes racket-hit {
+      0% { transform: rotate(-25deg); }
+      10% { transform: rotate(45deg); }
+      20% { transform: rotate(-25deg); }
+      100% { transform: rotate(-25deg); }
+    }
+    @keyframes ball-fly {
+      0%, 8% { transform: translate(-10px, 10px) scale(0); opacity: 0; }
+      10% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+      40% { transform: translate(45px, -35px) scale(0.6); opacity: 0; }
+      100% { transform: translate(45px, -35px) scale(0); opacity: 0; }
+    }
+
+    /* 메인 index.html과 정확히 동일한 탭 규격 (선수명단, 라운드 경기, 경기결과) */
+    .tab-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background: #f8fafc;
+      padding: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      width: 100%;
+    }
+    .tab-btn {
+      padding: 10px 4px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      border-radius: 12px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      white-space: nowrap;
+    }
+    .tab-btn:active { transform: scale(0.96); }
+    .tab-btn.active {
+      color: #ffffff;
+      background-color: var(--primary);
+      border-color: rgba(255,255,255,0.25);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+    }
+
+    .app-main {
+      padding: 12px;
+      background: #ffffff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 440px;
+    }
+    .tab-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .hidden { display: none !important; }
+
+    .sync-lamp {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+      transition: all 0.25s ease;
+      display: inline-block;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .sync-lamp.saving {
+      background: #38bdf8;
+      box-shadow: 0 0 7px #38bdf8;
+      animation: lamp-pulse 0.7s infinite alternate;
+    }
+    .sync-lamp.offline {
+      background: #ef4444;
+      box-shadow: 0 0 5px #ef4444;
+      animation: none;
+    }
+    @keyframes lamp-pulse {
+      0% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .sub-bar-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 2px;
+      padding-top: 2px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .sub-bar-select {
+      background: #f8fafc;
+      border: 1.5px solid var(--primary);
+      font-weight: 900;
+      color: #0f172a;
+      font-size: 11px;
+      border-radius: 8px;
+      padding: 6px 2px;
+      outline: none;
+      text-align: center;
+      letter-spacing: -0.5px;
+      cursor: pointer;
+    }
+
+    .group-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin: 6px 0;
+      font-size: 12px;
+      font-weight: 900;
+      color: #1e293b;
+    }
+
+    /* 선수 명단 1열 수평 배열 조 + 후보 */
+    .entry-pair-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .entry-pair-badge {
+      flex-shrink: 0;
+      width: 48px;
+      text-align: center;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 900;
+      padding: 6px 0;
+      border-radius: 6px;
+    }
+    .entry-pair-badge.reserve-badge {
+      background: #64748b;
+    }
+    .entry-pair-input-box {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 4px 6px;
+    }
+    .entry-input {
+      width: 100%;
+      font-size: 13.5px;
+      font-weight: 900;
+      color: #0f172a;
+      border: none;
+      background: transparent;
+      outline: none;
+      text-align: center;
+    }
+    .entry-input::placeholder {
+      color: #94a3b8;
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .entry-pair-sep {
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 900;
+      color: #64748b;
+    }
+
+    .round-match-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .round-match-card.win-card {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .round-match-card.lose-card {
+      background: #fff1f2;
+      border-color: #fecdd3;
+    }
+
+    .match-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 11.5px;
+      font-weight: 900;
+    }
+    .match-pair-badge {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .match-pair-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .pair-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    /* 우리팀 이름 2열 큼지막하게 배치 (모바일에서 절대 잘리지 않도록 명확한 그리드와 폰트 보장) */
+    .pair-name-box-2col {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 8px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      align-items: center;
+      min-height: 52px;
+    }
+    .pair-name-text-item {
+      font-size: 13.5px;
+      font-weight: 900;
+      color: #0f172a;
+      text-align: center;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.25;
+    }
+
+    /* 상대선수 이름 1열 (세로문구 '상대' 삭제됨) */
+    .pair-name-box-1col {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+    }
+    .pair-input-inline {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      font-weight: 900;
+      width: 100%;
+      color: #0f172a;
+      text-align: center;
+    }
+    .pair-input-inline::placeholder {
+      color: #94a3b8;
+      font-weight: normal;
+      font-size: 11.5px;
+    }
+
+    .pair-score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: #e2e8f0;
+      padding: 3px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .pair-score-input {
+      width: 34px;
+      height: 34px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 17px;
+      color: #0f172a;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      outline: none;
+    }
+    .pair-score-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--border-accent);
+    }
+
+    .bracket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-height: 290px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .bracket-node {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .bracket-node.node-win {
+      border-left: 5px solid #16a34a;
+      background: #f0fdf4;
+    }
+    .bracket-node.node-lose {
+      border-left: 5px solid #e11d48;
+      background: #fff1f2;
+    }
+    .bracket-node.node-wait {
+      border-left: 5px solid #94a3b8;
+    }
+
+    .btn-primary-large {
+      width: 100%;
+      background-color: var(--primary);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-kakao-share {
+      background-color: #fde047;
+      color: #3f2700;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid #facc15;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-outline-mini-compact {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-size: 9.5px;
+      font-weight: 900;
+      padding: 6px 1px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      white-space: nowrap;
+      letter-spacing: -0.6px;
+      line-height: 1;
+    }
+
+    .footer-credit {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 8px 0 10px 0;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: 'Dancing Script', cursive, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .modal-backdrop.show { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .toast-msg {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      z-index: 220;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+    }
+    .toast-msg.show { opacity: 1; }
+
+    .capture-overlay {
+      position: fixed;
+      inset: 0;
+      background: #f8fafc;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .capture-overlay.show { opacity: 1; pointer-events: auto; }
+    .capture-topbar {
+      background: #0f172a;
+      color: white;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      z-index: 101;
+    }
+    .capture-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-card">
+    <header class="app-header">
+      <div class="clock-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span id="liveDateTime">시간 동기화 중...</span>
+        <span id="tourSyncLamp" class="sync-lamp" title="실시간 파이어베이스 클라우드 동기화 됨"></span>
+        <span style="opacity: 0.35; font-size: 9px; margin: 0 1px;">|</span>
+        <span id="tourUserCountBadge" style="font-size: 9.5px; font-weight: 800; color: var(--accent);">1명</span>
+        <span style="opacity: 0.35; font-size: 9px; margin: 0 1px;">|</span>
+        <span style="font-size: 9.5px; font-weight: 800; color: var(--accent);">⚡ 실시간연동</span>
+      </div>
+
+      <!-- 상단 타이틀 바: 중앙 정렬 클럽명 + 우측 규칙/이용가이드 -->
+      <div class="club-title">
+        <div class="club-title-left">
+          <button onclick="openThemeModal()" class="theme-trigger-btn" title="테마 변경">
+            <svg width="30" height="30" viewBox="0 0 50 50" style="overflow: visible;">
+              <g class="anim-racket" transform-origin="25px 35px">
+                <ellipse cx="25" cy="15" rx="9.5" ry="13.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+                <line x1="25" y1="28.5" x2="25" y2="46" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+                <line x1="19.5" y1="20" x2="30.5" y2="20" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="19.5" y1="10" x2="30.5" y2="10" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="21" y1="5.5" x2="21" y2="24.5" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="29" y1="5.5" x2="29" y2="24.5" stroke="currentColor" stroke-width="1.5"/>
+              </g>
+              <circle class="anim-ball" cx="25" cy="15" r="4.8" fill="var(--accent)" />
+            </svg>
+          </button>
+        </div>
+        <div class="club-title-center">
+          <span class="club-title-text">세종 대왕테니스 클럽</span>
+        </div>
+        <div class="header-btns-group">
+          <button onclick="openRulesModal()" class="rules-trigger-btn" title="단체전 공식 규칙">📜 규칙</button>
+          <button onclick="openManualModal()" class="manual-trigger-btn" title="이용 설명서">📖</button>
+        </div>
+      </div>
+
+      <!-- 대회명 입력 라인: KDK 버튼을 우측 세로선(이용가이드와 일치)에 정렬 -->
+      <div class="event-title-wrapper">
+        <div style="width: 28px; flex-shrink: 0;"></div>
+        <input 
+          id="tournamentTitle" 
+          type="text" 
+          value="" 
+          placeholder="대회명 입력 (예: 협회장배)"
+          oninput="handleTournamentTitleInput(this)"
+          class="event-title-input"
+        />
+        <button onclick="handleNavigateToKdk()" class="btn-kdk-nav" title="클럽 KDK 매니저로 복귀">🏠 KDK</button>
+      </div>
+    </header>
+
+    <!-- 메인 index.html과 동일한 탭 규격 (선수명단, 라운드 경기, 경기결과) -->
+    <nav class="tab-nav">
+      <button id="tabBtn-entry" onclick="switchTournamentTab('entry')" class="tab-btn">
+        <span>선수명단</span>
+      </button>
+      <button id="tabBtn-match" onclick="switchTournamentTab('match')" class="tab-btn active">
+        <span>라운드 경기</span>
+      </button>
+      <button id="tabBtn-summary" onclick="switchTournamentTab('summary')" class="tab-btn">
+        <span>경기결과</span>
+      </button>
+    </nav>
+
+    <div style="padding: 6px 12px 0 12px; background: #ffffff;">
+      <div class="sub-bar-control">
+        <select id="matchFormatSelect" onchange="changeMatchFormat(this.value)" class="sub-bar-select" style="flex: 1.1;">
+          <option value="3doubles" selected>3복식 (3전 2선승)</option>
+          <option value="5doubles">5복식 (5전 3선승)</option>
+        </select>
+
+        <select id="teamSelect" onchange="changeTeam(this.value)" class="sub-bar-select" style="flex: 0.95;">
+          <option value="A" selected>A팀 (대표팀)</option>
+          <option value="B">B팀 (대표팀)</option>
+        </select>
+
+        <select id="roundSelect" onchange="changeRound(this.value)" class="sub-bar-select" style="flex: 1.15; border-color: var(--accent); background: var(--primary-light); color: var(--primary);">
+          <option value="pre1" selected>예선 1경기</option>
+          <option value="pre2">예선 2경기</option>
+          <option value="pre3">예선 3경기</option>
+          <option value="r32">32강전 (본선)</option>
+          <option value="r16">16강전 (본선)</option>
+          <option value="r8">8강전 (준준결)</option>
+          <option value="r4">4강전 (준결승)</option>
+          <option value="final">결승전 (우승도전)</option>
+        </select>
+      </div>
+    </div>
+
+    <main class="app-main">
+
+      <!-- [탭 1] 선수명단 등록 -->
+      <section id="tab-entry" class="tab-section hidden">
+        <div>
+          <div class="group-section-header">
+            <span id="entryHeaderTitle">🟢 A팀 선수명단</span>
+            <span style="font-size: 10px; color: var(--primary); font-weight: 800;">조별 페어 + 후보</span>
+          </div>
+
+          <div id="entryInputsGrid" style="max-height: 330px; overflow-y: auto; padding-right: 2px;"></div>
+        </div>
+
+        <div style="padding-top: 8px; margin-top: 6px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 11px; color: var(--primary); font-weight: 800;">⚡ 엔트리 입력 후 라운드 경기 이동</span>
+          <button onclick="switchTournamentTab('match')" class="btn-primary-large" style="width: auto; padding: 7px 14px; font-size: 13px;">
+            라운드 경기 ➔
+          </button>
+        </div>
+      </section>
+
+      <!-- [탭 2] 라운드 경기 진행 -->
+      <section id="tab-match" class="tab-section">
+        <div>
+          <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 8px 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 4px; flex-shrink: 0;">
+              <span id="currentRoundBadge" style="color: white; padding: 3px 6px; border-radius: 6px; font-size: 11px; font-weight: 900;">예선 1경기</span>
+            </div>
+            <div style="flex: 1; display: flex; align-items: center; gap: 4px; justify-content: flex-end; min-width: 0;">
+              <span style="font-size: 11.5px; font-weight: 900; color: #475569; white-space: nowrap; flex-shrink: 0;">상대:</span>
+              <input 
+                id="opponentClubInput" 
+                type="text" 
+                placeholder="상대 클럽명" 
+                oninput="handleOpponentClubChange(this.value)"
+                style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 6px; font-size: 12px; font-weight: 800; width: 100%; max-width: 120px; outline: none; background: #ffffff;"
+              />
+            </div>
+          </div>
+
+          <div id="doublesMatchList" style="display: flex; flex-direction: column; max-height: 275px; overflow-y: auto; padding-right: 2px;"></div>
+
+          <div id="roundResultBanner" style="margin-top: 6px; padding: 7px 10px; border-radius: 8px; text-align: center; font-weight: 900; font-size: 12.5px; display: flex; align-items: center; justify-content: space-between;"></div>
+        </div>
+
+        <div style="padding-top: 8px; margin-top: 4px; border-top: 1px solid #f1f5f9; display: flex; gap: 6px;">
+          <button onclick="advanceToNextRound()" class="btn-primary-large" style="flex: 1; padding: 10px; font-size: 12.5px;">
+            승리 확정 ➔ 다음 라운드 진출
+          </button>
+        </div>
+      </section>
+
+      <!-- [탭 3] 경기결과 (A팀 또는 B팀 선택에 맞게 동적 연동) -->
+      <section id="tab-summary" class="tab-section hidden">
+        <div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 8px;">
+            <button onclick="saveTournamentEvent()" class="btn-outline-mini-compact" title="현재 대회 전적 저장">
+              💾 대회저장
+            </button>
+            <button onclick="openArchiveModal()" class="btn-outline-mini-compact" title="저장된 대회 불러오기">
+              📂 불러오기
+            </button>
+            <button onclick="openPhotosModal()" class="btn-outline-mini-compact" style="border-color: #38bdf8; color: #0284c7; background: #f0f9ff;" title="사진 저장 및 보기">
+              📷 사진저장/보기
+            </button>
+          </div>
+
+          <div class="group-section-header">
+            <span id="summaryHeaderTitle">🏁 토너먼트 진출 현황 로드맵 (A팀)</span>
+            <span id="overallTieStat" style="font-size: 10.5px; font-weight: 800; color: var(--primary);">0승 0패</span>
+          </div>
+
+          <div id="tournamentBracketList" class="bracket-list"></div>
+        </div>
+
+        <div style="padding-top: 8px; margin-top: 4px; border-top: 1px solid #f1f5f9; display: flex; gap: 6px;">
+          <button onclick="shareKakaoTournament()" class="btn-kakao-share" style="flex: 1; padding: 10px; font-size: 12px;">
+            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-5.5 0-10 3.58-10 8 0 2.8 1.8 5.26 4.54 6.71l-1.16 4.25c-.1.38.32.7.67.48l5.12-3.38c.27.02.55.04.83.04 5.5 0 10-3.58 10-8s-4.5-8-10-8z"/></svg>
+            <span>클럽카톡방 전적 공유</span>
+          </button>
+          <button onclick="openCaptureView()" class="btn-primary-large" style="flex: 1; background: #0f172a; font-size: 12px; padding: 10px;">
+            📸 캡처공유(사진)
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="footer-credit" onclick="openPoemModal()" style="cursor: pointer;" title="클릭하여 숨겨진 시 감상하기">
+    Designed by msoo
+  </div>
+
+  <div id="themeModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">
+        <h3 style="font-size: 14px; font-weight: 900; color: #1e293b;">🎨 사계절 테마 선택 (8종)</h3>
+        <button onclick="closeThemeModal()" style="border: none; background: none; font-size: 18px; color: #94a3b8; cursor: pointer;">✕</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; max-height: 60vh; overflow-y: auto;">
+        <button onclick="setTournamentTheme('spring')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #fbcfe8; background: #fdf2f8; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #831843;">🌸 봄 (벚꽃핑크)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #be185d;"></div>
+        </button>
+        <button onclick="setTournamentTheme('spring_mint')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #99f6e4; background: #f0fdfa; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #134e4a;">🌱 봄 (싱그런민트)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #0d9488;"></div>
+        </button>
+        <button onclick="setTournamentTheme('summer')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #a7f3d0; background: #f0fdf4; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #064e3b;">🌿 여름 (깊은숲속)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #15803d;"></div>
+        </button>
+        <button onclick="setTournamentTheme('summer_ocean')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #bae6fd; background: #f0f9ff; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #0c4a6e;">🌊 여름 (마린오션)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #0284c7;"></div>
+        </button>
+        <button onclick="setTournamentTheme('autumn')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #fed7aa; background: #fff7ed; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #7c2d12;">🍁 가을 (단풍오렌지)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #c2410c;"></div>
+        </button>
+        <button onclick="setTournamentTheme('autumn_amber')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #fde68a; background: #fffbeb; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #78350f;">🌾 가을 (황금앰버)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #d97706;"></div>
+        </button>
+        <button onclick="setTournamentTheme('winter')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #bfdbfe; background: #eff6ff; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #1e3a8a;">❄️ 겨울 (네이비)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #1d4ed8;"></div>
+        </button>
+        <button onclick="setTournamentTheme('winter_charcoal')" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer;">
+          <span style="font-size: 12px; font-weight: 900; color: #334155;">🗻 겨울 (차콜설산)</span>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #475569;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="manualModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 380px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+        <h3 style="font-size: 15px; font-weight: 900; color: #1e293b;">📖 단체전 대회참여 매니저 가이드</h3>
+        <button onclick="closeManualModal()" style="border: none; background: none; font-size: 18px; color: #94a3b8; cursor: pointer;">✕</button>
+      </div>
+      <div style="font-size: 12px; color: #334155; line-height: 1.6; max-height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+        <div style="background: #f8fafc; padding: 8px 10px; border-radius: 8px; border-left: 4px solid var(--primary);">
+          <b>1. 👥 경기방식 & 출전팀 선택:</b> 상단에서 3복식/5복식 및 A팀/B팀을 선택합니다.
+        </div>
+        <div style="background: #f8fafc; padding: 8px 10px; border-radius: 8px; border-left: 4px solid var(--primary);">
+          <b>2. 📝 선수명단 등록:</b> 1조, 2조, 3조 각 조별 2명의 페어 선수와 후보 선수 2명을 입력합니다.
+        </div>
+      </div>
+      <button onclick="closeManualModal()" style="margin-top: 14px; width: 100%; padding: 9px; border-radius: 8px; background: #f1f5f9; color: #475569; font-weight: 800; border: none; cursor: pointer;">확인 완료</button>
+    </div>
+  </div>
+
+  <div id="rulesModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 380px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+        <h3 style="font-size: 15px; font-weight: 900; color: #1e293b;">📜 테니스 단체전 공식 경기 규정</h3>
+        <button onclick="closeRulesModal()" style="border: none; background: none; font-size: 18px; color: #94a3b8; cursor: pointer;">✕</button>
+      </div>
+      <div style="font-size: 12px; color: #334155; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
+        <ol style="padding-left: 16px; display: flex; flex-direction: column; gap: 6px;">
+          <li><b>오더 제출 규정:</b> 경기 시작 전 명단을 동시 제출하며, 교체는 불가능합니다.</li>
+          <li><b>승패 결정:</b> 3복식은 2선승제, 5복식은 3선승제로 승리팀이 진출합니다.</li>
+        </ol>
+      </div>
+      <button onclick="closeRulesModal()" style="margin-top: 14px; width: 100%; padding: 9px; border-radius: 8px; background: #f1f5f9; color: #475569; font-weight: 800; border: none; cursor: pointer;">규칙 확인 완료</button>
+    </div>
+  </div>
+
+  <div id="archiveModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 360px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">
+        <h3 style="font-size: 14px; font-weight: 900; color: #1e293b;">📂 저장된 단체전 대회 목록</h3>
+        <button onclick="closeArchiveModal()" style="border: none; background: none; font-size: 18px; color: #94a3b8; cursor: pointer;">✕</button>
+      </div>
+      <div id="archiveList" style="display: flex; flex-direction: column; gap: 6px; max-height: 50vh; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- [모달: 사진 및 파일 등록 / 보기] -->
+  <div id="photosModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 380px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">
+        <h3 style="font-size: 14px; font-weight: 900; color: #1e293b;">📷 사진 및 파일 등록 / 보기</h3>
+        <button onclick="closePhotosModal()" style="border: none; background: none; font-size: 18px; color: #94a3b8; cursor: pointer;">✕</button>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; background: #f8fafc; padding: 8px 10px; border-radius: 10px; border: 1px dashed #cbd5e1;">
+        <span style="font-size: 11px; color: #475569; font-weight: 700;">사진 및 경기 파일 첨부 하세요.</span>
+        <label style="background: var(--primary); color: #ffffff; font-size: 11.5px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+          ➕ 파일선택
+          <input type="file" id="photoFileInput" accept="image/*" onchange="handlePhotoUpload(event)" style="display: none;" />
+        </label>
+      </div>
+
+      <div id="photosGrid" style="display: flex; flex-direction: column; gap: 10px; max-height: 60vh; overflow-y: auto; overflow-x: hidden; padding-right: 4px;"></div>
+
+      <button onclick="closePhotosModal()" style="margin-top: 14px; width: 100%; padding: 9px; border-radius: 8px; background: #f1f5f9; color: #475569; font-weight: 800; border: none; cursor: pointer;">닫기</button>
+    </div>
+  </div>
+
+  <!-- [라이트박스] -->
+  <div id="photoLightbox" class="modal-backdrop" style="z-index: 120; background: rgba(0,0,0,0.9); padding: 10px;" onclick="closePhotoLightbox()">
+    <div style="position: relative; max-width: 95vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center;" onclick="event.stopPropagation();">
+      <img id="lightboxImg" src="" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);" />
+      <button onclick="closePhotoLightbox()" style="margin-top: 12px; padding: 8px 24px; border-radius: 9999px; background: rgba(255,255,255,0.25); color: #ffffff; font-weight: 800; border: 1px solid rgba(255,255,255,0.4); cursor: pointer;">닫기</button>
+    </div>
+  </div>
+
+  <div id="captureOverlay" class="capture-overlay">
+    <div class="capture-topbar">
+      <span>📸 이 화면을 캡처하여 클럽 회원들과 공유하세요</span>
+      <button onclick="closeCaptureView()" style="background:none; border:none; color:white; font-size:22px; cursor:pointer;">✕</button>
+    </div>
+    <div id="captureContent" class="capture-scroll"></div>
+  </div>
+
+  <div id="toast" class="toast-msg">알림 메시지</div>
+
+  <div id="poemModal" class="modal-backdrop">
+    <div class="modal-box" style="background: linear-gradient(145deg, #091322, #172554 60%, #1e1b4b); color: #ffffff; border: 1.5px solid rgba(255, 255, 255, 0.25); text-align: center; position: relative; overflow: hidden; padding: 22px 20px 18px; border-radius: 18px; max-width: 360px;">
+      <div style="font-size: 10px; letter-spacing: 2px; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; margin-bottom: 4px; font-weight: 700;">Tennis & Together</div>
+      <h3 style="font-size: 16px; font-weight: 900; color: #ffffff; margin-bottom: 12px; letter-spacing: -0.2px;">
+        - 단체전, 함께 뛰는 코트의 시 -
+      </h3>
+      <div style="font-size: 13.5px; line-height: 1.7; font-weight: 500; color: #ffffff; letter-spacing: -0.3px;">
+        나 혼자만의 샷이 아니라<br>
+        등 뒤의 파트너와 함께 달리고<br>
+        우리 클럽의 이름을 가슴에 품고<br>
+        라켓을 쥐어 잡는다.
+      </div>
+      <button onclick="closePoemModal()" style="margin-top: 16px; padding: 7px 20px; border-radius: 9999px; background: rgba(255,255,255,0.15); color: #ffffff; font-weight: 800; font-size: 12px; border: 1px solid rgba(255, 255, 255, 0.35); cursor: pointer;">닫기</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const CLUB_ID = "sejong-daewang-tennis-v1";
+    const TOURNAMENT_STORAGE_KEY = 'sejong_tournament_entry_state_v1';
+    const TOURNAMENT_ARCHIVE_KEY = 'sejong_tournament_archive_v1';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC2EQ52cnJjfwLnD55H3UeS7s9gFvxFuKk",
+      authDomain: "tennis-data-41132.firebaseapp.com",
+      projectId: "tennis-data-41132",
+      storageBucket: "tennis-data-41132.firebasestorage.app",
+      messagingSenderId: "833709428659",
+      appId: "1:833709428659:web:9cbb10ebb16840e63985c6",
+      measurementId: "G-ZTV4WNVVZ1"
+    };
+
+    let app, db, auth;
+    let isCloudReady = false;
+    let isRemoteUpdate = false;
+    let syncDebounceTimer = null;
+    let currentUserId = 'u_tour_' + Math.random().toString(36).substring(2, 9);
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    window.showToast = showToast;
+
+    try {
+      app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      auth = getAuth(app);
+    } catch(e) {
+      console.warn("Firebase Init:", e);
+    }
+
+    const ROUND_KEYS = ['pre1', 'pre2', 'pre3', 'r32', 'r16', 'r8', 'r4', 'final'];
+    const ROUND_LABELS = {
+      pre1: '예선 1경기',
+      pre2: '예선 2경기',
+      pre3: '예선 3경기',
+      r32: '32강전 (본선)',
+      r16: '16강전 (본선)',
+      r8: '8강전 (준준결)',
+      r4: '4강전 (준결승)',
+      final: '결승전 (우승도전)'
+    };
+
+    function createEmptyRoundData(matchFormat) {
+      const matchCount = matchFormat === '5doubles' ? 5 : 3;
+      const matches = [];
+      for (let i = 1; i <= matchCount; i++) {
+        matches.push({
+          pairNum: i,
+          ourP1: '',
+          ourP2: '',
+          oppP1: '',
+          oppP2: '',
+          scoreOur: '',
+          scoreOpp: '',
+          played: false
+        });
+      }
+      return {
+        opponentClub: '',
+        matches: matches,
+        tieWon: false,
+        completed: false
+      };
+    }
+
+    function createDefaultTeamState(matchFormat) {
+      const pCount = matchFormat === '5doubles' ? 10 : 6;
+      const defaultPlayers = Array(pCount).fill('');
+      const rounds = {};
+      ROUND_KEYS.forEach(k => {
+        rounds[k] = createEmptyRoundData(matchFormat);
+      });
+      return {
+        players: defaultPlayers,
+        reserves: ['', ''],
+        rounds: rounds
+      };
+    }
+
+    let savedData = null;
+    try {
+      const stored = localStorage.getItem(TOURNAMENT_STORAGE_KEY);
+      if (stored) savedData = JSON.parse(stored);
+    } catch(e) {}
+
+    window.tourState = savedData || {
+      tournamentTitle: '2026 협회장배 단체전',
+      matchFormat: '3doubles',
+      currentTeam: 'A',
+      currentRound: 'pre1',
+      prizeMemo: '',
+      photos: [],
+      teams: {
+        A: createDefaultTeamState('3doubles'),
+        B: createDefaultTeamState('3doubles')
+      }
+    };
+
+    if (!window.tourState.photos) window.tourState.photos = [];
+    if (!window.tourState.teams) {
+      window.tourState.teams = {
+        A: createDefaultTeamState(window.tourState.matchFormat || '3doubles'),
+        B: createDefaultTeamState(window.tourState.matchFormat || '3doubles')
+      };
+    }
+
+    ['A', 'B'].forEach(tKey => {
+      if (!window.tourState.teams[tKey]) {
+        window.tourState.teams[tKey] = createDefaultTeamState(window.tourState.matchFormat || '3doubles');
+      }
+      if (!window.tourState.teams[tKey].reserves) {
+        window.tourState.teams[tKey].reserves = ['', ''];
+      }
+      if (!window.tourState.teams[tKey].rounds) {
+        window.tourState.teams[tKey].rounds = {};
+      }
+      ROUND_KEYS.forEach(rk => {
+        if (!window.tourState.teams[tKey].rounds[rk]) {
+          window.tourState.teams[tKey].rounds[rk] = createEmptyRoundData(window.tourState.matchFormat || '3doubles');
+        }
+      });
+    });
+
+    function setSyncLamp(state) {
+      const lamp = document.getElementById('tourSyncLamp');
+      if (!lamp) return;
+      lamp.className = 'sync-lamp ' + (state || '');
+      if (state === 'saving') lamp.title = '파이어베이스 저장 중...';
+      else if (state === 'offline') lamp.title = '로컬 모드 (오프라인)';
+      else lamp.title = '실시간 파이어베이스 클라우드 동기화 됨';
+    }
+
+    function updateLiveClock() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      const day = days[now.getDay()];
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+      const el = document.getElementById('liveDateTime');
+      if (el) el.innerText = `${y}.${m}.${d} (${day}) ${hh}:${mm}:${ss}`;
+    }
+    setInterval(updateLiveClock, 1000);
+
+    window.openThemeModal = function() { document.getElementById('themeModal').classList.add('show'); };
+    window.closeThemeModal = function() { document.getElementById('themeModal').classList.remove('show'); };
+    window.setTournamentTheme = function(themeKey) {
+      localStorage.setItem('sejong_user_theme', themeKey);
+      applyTheme(themeKey);
+      closeThemeModal();
+      showToast('테마가 적용되었습니다.');
+    };
+
+    function applyTheme(themeKey) {
+      const t = themeKey || localStorage.getItem('sejong_user_theme') || 'summer';
+      document.body.setAttribute('data-theme', t);
+      localStorage.setItem('sejong_user_theme', t);
+      const themeColors = {
+        summer: '#064e3b',
+        summer_ocean: '#0c4a6e',
+        spring: '#831843',
+        spring_mint: '#134e4a',
+        autumn: '#7c2d12',
+        autumn_amber: '#78350f',
+        winter: '#0f172a',
+        winter_charcoal: '#1e293b'
+      };
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta && themeColors[t]) meta.setAttribute('content', themeColors[t]);
+    }
+
+    window.openManualModal = function() { document.getElementById('manualModal').classList.add('show'); };
+    window.closeManualModal = function() { document.getElementById('manualModal').classList.remove('show'); };
+    window.openRulesModal = function() { document.getElementById('rulesModal').classList.add('show'); };
+    window.closeRulesModal = function() { document.getElementById('rulesModal').classList.remove('show'); };
+    window.openPoemModal = function() { document.getElementById('poemModal').classList.add('show'); };
+    window.closePoemModal = function() { document.getElementById('poemModal').classList.remove('show'); };
+
+    window.handleNavigateToKdk = function() {
+      const isEmbedEnv = window.location.pathname.includes('/embeds/') || window.location.hostname.includes('usercontent.goog');
+      if (isEmbedEnv) {
+        showToast('💡 GitHub/실제 서버 환경에서 index.html로 이동합니다.');
+        return;
+      }
+      try {
+        window.location.assign('./index.html');
+      } catch(e) {
+        window.location.href = './index.html';
+      }
+    };
+
+    window.handleTournamentTitleInput = function(inputEl) {
+      window.tourState.tournamentTitle = inputEl.value;
+      saveTournamentState(false);
+    };
+
+    async function saveTournamentState(immediate = false) {
+      try {
+        localStorage.setItem(TOURNAMENT_STORAGE_KEY, JSON.stringify(window.tourState));
+      } catch(e) {}
+
+      if (isRemoteUpdate || !isCloudReady || !db) return;
+
+      if (syncDebounceTimer) {
+        clearTimeout(syncDebounceTimer);
+        syncDebounceTimer = null;
+      }
+
+      const performSave = async () => {
+        try {
+          setSyncLamp('saving');
+          const docRef = doc(db, 'clubs', CLUB_ID, 'tournament_live', 'current');
+          await setDoc(docRef, JSON.parse(JSON.stringify(window.tourState)));
+          setSyncLamp('');
+        } catch(e) {
+          console.warn("Tournament cloud save error:", e);
+          setSyncLamp('offline');
+        }
+      };
+
+      if (immediate) {
+        await performSave();
+      } else {
+        syncDebounceTimer = setTimeout(performSave, 400);
+      }
+    }
+
+    window.switchTournamentTab = function(tabKey) {
+      ['entry', 'match', 'summary'].forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        const btn = document.getElementById(`tabBtn-${t}`);
+        if (!sec || !btn) return;
+        if (t === tabKey) {
+          sec.classList.remove('hidden');
+          btn.classList.add('active');
+        } else {
+          sec.classList.add('hidden');
+          btn.classList.remove('active');
+        }
+      });
+      if (tabKey === 'entry') renderEntryTab();
+      if (tabKey === 'match') renderMatchTab();
+      if (tabKey === 'summary') renderSummaryTab();
+    };
+
+    window.changeMatchFormat = function(format) {
+      window.tourState.matchFormat = format;
+      const targetPairCount = format === '5doubles' ? 5 : 3;
+      const requiredPlayers = targetPairCount * 2;
+
+      ['A', 'B'].forEach(t => {
+        if (!window.tourState.teams[t]) {
+          window.tourState.teams[t] = createDefaultTeamState(format);
+        }
+        const teamObj = window.tourState.teams[t];
+        if (!teamObj.players) teamObj.players = [];
+        while (teamObj.players.length < requiredPlayers) {
+          teamObj.players.push('');
+        }
+        if (!teamObj.reserves) {
+          teamObj.reserves = ['', ''];
+        }
+        ROUND_KEYS.forEach(rk => {
+          if (!teamObj.rounds[rk]) {
+            teamObj.rounds[rk] = createEmptyRoundData(format);
+          }
+          const mList = teamObj.rounds[rk].matches;
+          while (mList.length < targetPairCount) {
+            mList.push({
+              pairNum: mList.length + 1,
+              ourP1: '', ourP2: '', oppP1: '', oppP2: '',
+              scoreOur: '', scoreOpp: '', played: false
+            });
+          }
+        });
+      });
+      autoSyncPairsToMatches();
+      saveTournamentState(true);
+      renderAllTabs();
+      showToast(`경기 방식이 [${format === '5doubles' ? '5복식' : '3복식'}]으로 변경되었습니다.`);
+    };
+
+    window.changeTeam = function(team) {
+      window.tourState.currentTeam = team;
+      saveTournamentState(false);
+      renderAllTabs();
+      showToast(`[${team}팀] 화면으로 전환되었습니다.`);
+    };
+
+    window.changeRound = function(roundKey) {
+      window.tourState.currentRound = roundKey;
+      saveTournamentState(false);
+      renderMatchTab();
+      showToast(`[${ROUND_LABELS[roundKey]}] 선택됨`);
+    };
+
+    function getCurrentTeamData() {
+      const t = window.tourState.currentTeam || 'A';
+      return window.tourState.teams[t];
+    }
+
+    function getCurrentRoundData() {
+      const teamData = getCurrentTeamData();
+      const rk = window.tourState.currentRound || 'pre1';
+      if (!teamData.rounds[rk]) {
+        teamData.rounds[rk] = createEmptyRoundData(window.tourState.matchFormat);
+      }
+      return teamData.rounds[rk];
+    }
+
+    function renderEntryTab() {
+      const teamKey = window.tourState.currentTeam || 'A';
+      const teamData = getCurrentTeamData();
+      const format = window.tourState.matchFormat || '3doubles';
+      const pairCount = format === '5doubles' ? 5 : 3;
+
+      if (!teamData.reserves) {
+        teamData.reserves = ['', ''];
+      }
+
+      const headerTitle = document.getElementById('entryHeaderTitle');
+      if (headerTitle) {
+        headerTitle.innerText = `${teamKey === 'A' ? '🟢 A팀' : '🟠 B팀'} 선수명단`;
+      }
+
+      const grid = document.getElementById('entryInputsGrid');
+      if (grid) {
+        const activeEl = document.activeElement;
+        const activeId = activeEl ? activeEl.id : null;
+
+        let html = '';
+        for (let p = 1; p <= pairCount; p++) {
+          const idx1 = (p - 1) * 2;
+          const idx2 = (p - 1) * 2 + 1;
+          const val1 = teamData.players[idx1] || '';
+          const val2 = teamData.players[idx2] || '';
+
+          html += `
+            <div class="entry-pair-row">
+              <div class="entry-pair-badge">A-${p}조</div>
+              <div class="entry-pair-input-box">
+                <input 
+                  type="text" 
+                  id="entry-player-${idx1}" 
+                  value="${val1}" 
+                  maxlength="8" 
+                  placeholder="선수명" 
+                  oninput="handleEntryPlayerInput(${idx1}, this.value)" 
+                  class="entry-input"
+                  autocomplete="off"
+                />
+              </div>
+              <span class="entry-pair-sep">&</span>
+              <div class="entry-pair-input-box">
+                <input 
+                  type="text" 
+                  id="entry-player-${idx2}" 
+                  value="${val2}" 
+                  maxlength="8" 
+                  placeholder="선수명" 
+                  oninput="handleEntryPlayerInput(${idx2}, this.value)" 
+                  class="entry-input"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          `;
+        }
+
+        const res1 = teamData.reserves[0] || '';
+        const res2 = teamData.reserves[1] || '';
+        html += `
+          <div class="entry-pair-row" style="background: #f1f5f9; border-color: #cbd5e1; margin-top: 8px;">
+            <div class="entry-pair-badge reserve-badge">후보</div>
+            <div class="entry-pair-input-box">
+              <input 
+                type="text" 
+                id="entry-reserve-0" 
+                value="${res1}" 
+                maxlength="8" 
+                placeholder="후보1 선수명" 
+                oninput="handleReservePlayerInput(0, this.value)" 
+                class="entry-input"
+                autocomplete="off"
+              />
+            </div>
+            <span class="entry-pair-sep">&</span>
+            <div class="entry-pair-input-box">
+              <input 
+                type="text" 
+                id="entry-reserve-1" 
+                value="${res2}" 
+                maxlength="8" 
+                placeholder="후보2 선수명" 
+                oninput="handleReservePlayerInput(1, this.value)" 
+                class="entry-input"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+        `;
+
+        grid.innerHTML = html;
+
+        if (activeId) {
+          const restoredEl = document.getElementById(activeId);
+          if (restoredEl) {
+            restoredEl.focus();
+            try { restoredEl.setSelectionRange(restoredEl.value.length, restoredEl.value.length); } catch(e) {}
+          }
+        }
+      }
+    }
+
+    window.handleEntryPlayerInput = function(idx, val) {
+      const teamData = getCurrentTeamData();
+      teamData.players[idx] = val.trim();
+      saveTournamentState(false);
+      autoSyncPairsToMatches();
+    };
+
+    window.handleReservePlayerInput = function(reserveIdx, val) {
+      const teamData = getCurrentTeamData();
+      if (!teamData.reserves) teamData.reserves = ['', ''];
+      teamData.reserves[reserveIdx] = val.trim();
+      saveTournamentState(false);
+    };
+
+    function autoSyncPairsToMatches() {
+      const teamData = getCurrentTeamData();
+      const format = window.tourState.matchFormat || '3doubles';
+      const pairCount = format === '5doubles' ? 5 : 3;
+
+      const requiredPlayers = pairCount * 2;
+      while (teamData.players.length < requiredPlayers) {
+        teamData.players.push('');
+      }
+
+      ROUND_KEYS.forEach(rk => {
+        let rData = teamData.rounds[rk];
+        if (!rData) {
+          rData = createEmptyRoundData(format);
+          teamData.rounds[rk] = rData;
+        }
+        while (rData.matches.length < pairCount) {
+          rData.matches.push({
+            pairNum: rData.matches.length + 1,
+            ourP1: '', ourP2: '', oppP1: '', oppP2: '',
+            scoreOur: '', scoreOpp: '', played: false
+          });
+        }
+        for (let p = 1; p <= pairCount; p++) {
+          const m = rData.matches[p - 1];
+          if (m) {
+            m.ourP1 = teamData.players[(p - 1) * 2] || '';
+            m.ourP2 = teamData.players[(p - 1) * 2 + 1] || '';
+          }
+        }
+      });
+      saveTournamentState(false);
+    }
+
+    function renderMatchTab() {
+      const roundKey = window.tourState.currentRound || 'pre1';
+      const teamKey = window.tourState.currentTeam || 'A';
+      const teamData = getCurrentTeamData();
+      const roundData = getCurrentRoundData();
+      const format = window.tourState.matchFormat || '3doubles';
+      const pairCount = format === '5doubles' ? 5 : 3;
+
+      if (!roundData.matches) roundData.matches = [];
+      while (roundData.matches.length < pairCount) {
+        roundData.matches.push({
+          pairNum: roundData.matches.length + 1,
+          ourP1: '', ourP2: '', oppP1: '', oppP2: '',
+          scoreOur: '', scoreOpp: '', played: false
+        });
+      }
+
+      const rBadge = document.getElementById('currentRoundBadge');
+      if (rBadge) {
+        rBadge.innerText = `[${teamKey}팀] ${ROUND_LABELS[roundKey] || roundKey}`;
+        rBadge.style.background = (teamKey === 'B') ? '#ea580c' : 'var(--primary)';
+      }
+
+      const oppInput = document.getElementById('opponentClubInput');
+      if (oppInput) {
+        oppInput.value = roundData.opponentClub || '';
+      }
+
+      const container = document.getElementById('doublesMatchList');
+      if (!container) return;
+
+      const activeEl = document.activeElement;
+      const activeId = activeEl ? activeEl.id : null;
+
+      let html = '';
+      for (let p = 1; p <= pairCount; p++) {
+        let m = roundData.matches[p - 1];
+        if (!m) {
+          m = { pairNum: p, ourP1: '', ourP2: '', oppP1: '', oppP2: '', scoreOur: '', scoreOpp: '', played: false };
+          roundData.matches[p - 1] = m;
+        }
+
+        const defaultOurP1 = teamData.players[(p - 1) * 2] || '';
+        const defaultOurP2 = teamData.players[(p - 1) * 2 + 1] || '';
+        const p1Name = m.ourP1 || defaultOurP1 || '선수1';
+        const p2Name = m.ourP2 || defaultOurP2 || '선수2';
+
+        const isPlayed = m.played;
+        const sOurVal = parseInt(m.scoreOur, 10);
+        const sOppVal = parseInt(m.scoreOpp, 10);
+        const isWin = isPlayed && !isNaN(sOurVal) && !isNaN(sOppVal) && (sOurVal > sOppVal);
+        const isLose = isPlayed && !isNaN(sOurVal) && !isNaN(sOppVal) && (sOppVal > sOurVal);
+
+        let cardClass = 'round-match-card';
+        if (isWin) cardClass += ' win-card';
+        else if (isLose) cardClass += ' lose-card';
+
+        let badgeBgColor = (teamKey === 'B') ? '#ea580c' : 'var(--primary)';
+
+        html += `
+          <div class="${cardClass}">
+            <div class="match-header-row">
+              <span class="match-pair-badge" style="background: ${badgeBgColor};">${teamKey}-${p}조</span>
+              <span style="font-size: 11.5px; font-weight: 900; color: ${isWin ? '#15803d' : (isLose ? '#e11d48' : '#64748b')};">
+                ${isWin ? '승리' : (isLose ? '양보' : '경기 대기')}
+              </span>
+            </div>
+
+            <div class="match-pair-row">
+              <div class="pair-col">
+                <div class="pair-name-box-2col">
+                  <span class="pair-name-text-item">${p1Name}</span>
+                  <span class="pair-name-text-item">${p2Name}</span>
+                </div>
+              </div>
+
+              <div class="pair-score-wrap">
+                <input 
+                  type="text" 
+                  id="score-our-${p-1}"
+                  inputmode="numeric" 
+                  pattern="[0-9]*" 
+                  maxlength="1" 
+                  value="${m.scoreOur !== undefined && m.scoreOur !== null ? m.scoreOur : ''}" 
+                  placeholder="" 
+                  oninput="handleMatchScore(${p - 1}, 'our', this.value)" 
+                  class="pair-score-input"
+                  autocomplete="off"
+                />
+                <span style="font-weight: 900; color: #64748b; font-size: 15px;">:</span>
+                <input 
+                  type="text" 
+                  id="score-opp-${p-1}"
+                  inputmode="numeric" 
+                  pattern="[0-9]*" 
+                  maxlength="1" 
+                  value="${m.scoreOpp !== undefined && m.scoreOpp !== null ? m.scoreOpp : ''}" 
+                  placeholder="" 
+                  oninput="handleMatchScore(${p - 1}, 'opp', this.value)" 
+                  class="pair-score-input"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="pair-col">
+                <div class="pair-name-box-1col">
+                  <input 
+                    type="text" 
+                    id="opp-player-${p-1}"
+                    value="${m.oppP1 || ''}" 
+                    placeholder="상대조 입력" 
+                    oninput="handleOppPlayerInput(${p - 1}, this.value)" 
+                    class="pair-input-inline"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+      updateRoundBanner(roundData, pairCount);
+
+      if (activeId) {
+        const restoredEl = document.getElementById(activeId);
+        if (restoredEl) {
+          restoredEl.focus();
+          try { restoredEl.setSelectionRange(restoredEl.value.length, restoredEl.value.length); } catch(e) {}
+        }
+      }
+    }
+
+    window.handleOpponentClubChange = function(val) {
+      const rData = getCurrentRoundData();
+      rData.opponentClub = val.trim();
+      saveTournamentState(false);
+    };
+
+    window.handleOppPlayerInput = function(matchIdx, val) {
+      const rData = getCurrentRoundData();
+      rData.matches[matchIdx].oppP1 = val.trim();
+      saveTournamentState(false);
+    };
+
+    window.handleMatchScore = function(matchIdx, side, val) {
+      const rData = getCurrentRoundData();
+      const m = rData.matches[matchIdx];
+      const clean = val.replace(/[^0-9]/g, '');
+
+      if (side === 'our') m.scoreOur = clean;
+      else m.scoreOpp = clean;
+
+      m.played = (m.scoreOur !== '' || m.scoreOpp !== '');
+      saveTournamentState(false);
+      renderMatchTab();
+    };
+
+    function updateRoundBanner(rData, pairCount) {
+      const banner = document.getElementById('roundResultBanner');
+      if (!banner) return;
+
+      let ourWins = 0;
+      let oppWins = 0;
+      let playedCount = 0;
+
+      rData.matches.slice(0, pairCount).forEach(m => {
+        if (m.played) {
+          playedCount++;
+          const sOur = parseInt(m.scoreOur || 0, 10);
+          const sOpp = parseInt(m.scoreOpp || 0, 10);
+          if (sOur > sOpp) ourWins++;
+          else if (sOpp > sOur) oppWins++;
+        }
+      });
+
+      const winThreshold = Math.ceil(pairCount / 2);
+      const isTieWon = ourWins >= winThreshold;
+      const isTieLost = oppWins >= winThreshold;
+
+      rData.tieWon = isTieWon;
+      rData.completed = isTieWon || isTieLost || (playedCount === pairCount);
+
+      if (isTieWon) {
+        banner.style.background = '#dcfce7';
+        banner.style.color = '#15803d';
+        banner.innerHTML = `<span>우리팀 승리 (${ourWins} : ${oppWins})</span><span style="font-size: 11px;">다음 라운드 진출!</span>`;
+      } else if (isTieLost) {
+        banner.style.background = '#ffe4e6';
+        banner.style.color = '#be123c';
+        banner.innerHTML = `<span>종합 결과: ${ourWins} : ${oppWins} (아쉬운 패배)</span><span style="font-size: 11px;">다음 기회에 도전!</span>`;
+      } else {
+        banner.style.background = '#f1f5f9';
+        banner.style.color = '#475569';
+        banner.innerHTML = `<span>현재 종합 전적: ${ourWins}승 ${oppWins}패</span><span style="font-size: 11px;">(${winThreshold}선승제 진행 중)</span>`;
+      }
+    }
+
+    window.advanceToNextRound = function() {
+      const curIdx = ROUND_KEYS.indexOf(window.tourState.currentRound);
+      if (curIdx < ROUND_KEYS.length - 1) {
+        const nextRound = ROUND_KEYS[curIdx + 1];
+        window.tourState.currentRound = nextRound;
+        const sel = document.getElementById('roundSelect');
+        if (sel) sel.value = nextRound;
+        saveTournamentState(true);
+        renderMatchTab();
+        showToast(`축하합니다! [${ROUND_LABELS[nextRound]}]에 진출했습니다! 🏆`);
+      } else {
+        showToast('최종 결승전 라운드입니다! 멋진 우승을 기원합니다! 🏆');
+      }
+    };
+
+    function renderSummaryTab() {
+      const listContainer = document.getElementById('tournamentBracketList');
+      const statEl = document.getElementById('overallTieStat');
+      const summaryHeader = document.getElementById('summaryHeaderTitle');
+      if (!listContainer) return;
+
+      const teamKey = window.tourState.currentTeam || 'A';
+      if (summaryHeader) {
+        summaryHeader.innerText = `🏁 토너먼트 진출 현황 로드맵 (${teamKey}팀)`;
+      }
+
+      const teamData = getCurrentTeamData();
+      const format = window.tourState.matchFormat || '3doubles';
+      const pairCount = format === '5doubles' ? 5 : 3;
+
+      let totalWins = 0;
+      let totalLoss = 0;
+      let html = '';
+
+      ROUND_KEYS.forEach(rk => {
+        const label = ROUND_LABELS[rk];
+        const rData = teamData.rounds[rk];
+        const opp = rData.opponentClub || '상대팀 미정';
+
+        let ourW = 0;
+        let oppW = 0;
+        let played = false;
+
+        rData.matches.slice(0, pairCount).forEach(m => {
+          if (m.played) {
+            played = true;
+            const sOur = parseInt(m.scoreOur || 0, 10);
+            const sOpp = parseInt(m.scoreOpp || 0, 10);
+            if (sOur > sOpp) ourW++;
+            else if (sOpp > sOur) oppW++;
+          }
+        });
+
+        const winThreshold = Math.ceil(pairCount / 2);
+        const isWin = ourW >= winThreshold;
+        const isLose = oppW >= winThreshold;
+
+        let nodeClass = 'bracket-node';
+        let statusBadge = '<span style="color:#94a3b8; font-weight:800; font-size:11px;">대기 중</span>';
+
+        if (isWin) {
+          nodeClass += ' node-win';
+          statusBadge = `<span style="color:#15803d; font-weight:900; font-size:12px;">승리 (${ourW}:${oppW}) ➔</span>`;
+          totalWins++;
+        } else if (isLose) {
+          nodeClass += ' node-lose';
+          statusBadge = `<span style="color:#e11d48; font-weight:900; font-size:12px;">패배 (${ourW}:${oppW})</span>`;
+          totalLoss++;
+        } else if (played) {
+          nodeClass += ' node-wait';
+          statusBadge = `<span style="color:#0284c7; font-weight:900; font-size:12px;">진행중 (${ourW}:${oppW})</span>`;
+        }
+
+        html += `
+          <div class="${nodeClass}" onclick="jumpToRound('${rk}')" title="클릭하여 해당 라운드 경기로 이동">
+            <div>
+              <div style="font-size: 13px; font-weight: 900; color: #0f172a;">${label}</div>
+              <div style="font-size: 11px; color: #64748b; margin-top: 2px;">vs ${opp}</div>
+            </div>
+            <div>${statusBadge}</div>
+          </div>
+        `;
+      });
+
+      listContainer.innerHTML = html;
+      if (statEl) {
+        statEl.innerText = `총 ${totalWins + totalLoss}전 ${totalWins}승 ${totalLoss}패`;
+      }
+    }
+
+    window.jumpToRound = function(roundKey) {
+      window.tourState.currentRound = roundKey;
+      const sel = document.getElementById('roundSelect');
+      if (sel) sel.value = roundKey;
+      switchTournamentTab('match');
+    };
+
+    function renderAllTabs() {
+      const curTab = document.querySelector('.tab-btn.active')?.id.replace('tabBtn-', '') || 'entry';
+      renderEntryTab();
+      renderMatchTab();
+      renderSummaryTab();
+      switchTournamentTab(curTab);
+    }
+
+    window.shareKakaoTournament = function() {
+      const title = window.tourState.tournamentTitle || '테니스 단체전 대회';
+      const teamKey = window.tourState.currentTeam || 'A';
+      const teamData = getCurrentTeamData();
+      const format = window.tourState.matchFormat === '5doubles' ? '5복식' : '3복식';
+      const pairCount = window.tourState.matchFormat === '5doubles' ? 5 : 3;
+
+      let txt = `🏆 세종 대왕테니스 클럽 - [${teamKey}팀] 대회 전적 보고\n`;
+      txt += `대회명: ${title}\n\n`;
+
+      if (teamData.reserves && (teamData.reserves[0] || teamData.reserves[1])) {
+        const rList = teamData.reserves.filter(r => r && r.trim() !== '').join(', ');
+        if (rList) txt += `[후보 선수]: ${rList}\n\n`;
+      }
+
+      let hasRecord = false;
+      ROUND_KEYS.forEach(rk => {
+        const rData = teamData.rounds[rk];
+        if (!rData) return;
+        const opp = rData.opponentClub || '상대팀';
+        let ourW = 0, oppW = 0, isPlayed = false;
+
+        rData.matches.slice(0, pairCount).forEach(m => {
+          if (m.played) {
+            isPlayed = true;
+            const sOur = parseInt(m.scoreOur || 0, 10);
+            const sOpp = parseInt(m.scoreOpp || 0, 10);
+            if (sOur > sOpp) ourW++;
+            else if (sOpp > sOur) oppW++;
+          }
+        });
+
+        if (isPlayed) {
+          hasRecord = true;
+          const resText = ourW > oppW ? '승리' : (oppW > ourW ? '양보' : '무승부');
+          txt += `■ ${ROUND_LABELS[rk]} [${resText} ${ourW}:${oppW}] vs ${opp}\n`;
+          rData.matches.slice(0, pairCount).forEach(m => {
+            if (m.played) {
+              const ourP = `${m.ourP1 || '선수'}/${m.ourP2 || '선수'}`;
+              const oppP = m.oppP1 || '상대조';
+              txt += `  - ${teamKey}-${m.pairNum}조: ${ourP} (${m.scoreOur}:${m.scoreOpp}) ${oppP}\n`;
+            }
+          });
+          txt += `\n`;
+        }
+      });
+
+      if (!hasRecord) {
+        txt += `아직 진행된 라운드 경기가 없습니다.\n`;
+      }
+      txt += `클럽 회원님들의 뜨거운 응원에 감사드립니다! 🎾`;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(txt).then(() => {
+          showToast('단체전 결과가 복사되었습니다! 카톡에 붙여넣어주세요.');
+        }).catch(() => fallbackCopy(txt));
+      } else {
+        fallbackCopy(txt);
+      }
+    };
+
+    function fallbackCopy(text) {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast('전적이 복사되었습니다! 카톡에 붙여넣어주세요.');
+    }
+
+    window.openCaptureView = function() {
+      const title = window.tourState.tournamentTitle || '대회';
+      const teamKey = window.tourState.currentTeam || 'A';
+      const teamData = getCurrentTeamData();
+      const format = window.tourState.matchFormat === '5doubles' ? '5복식' : '3복식';
+      const pairCount = window.tourState.matchFormat === '5doubles' ? 5 : 3;
+
+      let html = `
+        <div style="text-align: center; margin-bottom: 8px;">
+          <h2 style="font-size: 16px; font-weight: 900; color: #0f172a;">🏆 세종 대왕테니스 클럽 [${teamKey}팀]</h2>
+          <p style="font-size: 12px; font-weight: 800; color: #475569;">${title} (${format}) 종합 전적</p>
+        </div>
+      `;
+
+      let entrySummary = '<div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:6px; margin-bottom:6px; font-size:11px; text-align:left;">';
+      entrySummary += '<div style="font-weight:900; color:var(--primary); margin-bottom:3px;">📋 출전 선수명단</div>';
+      for (let p = 1; p <= pairCount; p++) {
+        const p1 = teamData.players[(p - 1) * 2] || '선수1';
+        const p2 = teamData.players[(p - 1) * 2 + 1] || '선수2';
+        entrySummary += `<span style="margin-right:8px; font-weight:800; color:#1e293b;">${teamKey}-${p}조: ${p1}&${p2}</span>`;
+      }
+      if (teamData.reserves && (teamData.reserves[0] || teamData.reserves[1])) {
+        const rList = teamData.reserves.filter(r => r && r.trim() !== '').join(', ');
+        if (rList) entrySummary += `<div style="margin-top:2px; color:#64748b; font-weight:800;">후보: ${rList}</div>`;
+      }
+      entrySummary += '</div>';
+      html += entrySummary;
+
+      ROUND_KEYS.forEach(rk => {
+        const rData = teamData.rounds[rk];
+        if (!rData) return;
+        const opp = rData.opponentClub || '상대클럽';
+        let ourW = 0, oppW = 0, played = false;
+
+        rData.matches.slice(0, pairCount).forEach(m => {
+          if (m.played) {
+            played = true;
+            const sOur = parseInt(m.scoreOur || 0, 10);
+            const sOpp = parseInt(m.scoreOpp || 0, 10);
+            if (sOur > sOpp) ourW++;
+            else if (sOpp > sOur) oppW++;
+          }
+        });
+
+        if (played) {
+          const isWin = ourW > oppW;
+          html += `
+            <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 8px; margin-bottom: 6px; background: ${isWin ? '#f0fdf4' : '#ffffff'};">
+              <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 11.5px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; margin-bottom: 4px;">
+                <span style="color: var(--primary);">🎾 ${ROUND_LABELS[rk]} vs ${opp}</span>
+                <span style="color: ${isWin ? '#15803d' : '#e11d48'};">${isWin ? '승리' : '양보'} (${ourW}:${oppW})</span>
+              </div>
+          `;
+          rData.matches.slice(0, pairCount).forEach(m => {
+            if (m.played) {
+              const ourP = `${m.ourP1 || '선수'}/${m.ourP2 || '선수'}`;
+              const oppP = m.oppP1 || '상대조';
+              html += `
+                <div style="display: flex; justify-content: space-between; font-size: 10.5px; padding: 1.5px 0; color: #334155;">
+                  <span>${teamKey}-${m.pairNum}조: ${ourP}</span>
+                  <span style="font-weight: 900;">${m.scoreOur} : ${m.scoreOpp}</span>
+                  <span style="color: #64748b;">${oppP}</span>
+                </div>
+              `;
+            }
+          });
+          html += `</div>`;
+        }
+      });
+
+      document.getElementById('captureContent').innerHTML = html;
+      document.getElementById('captureOverlay').classList.add('show');
+    };
+    window.closeCaptureView = function() {
+      document.getElementById('captureOverlay').classList.remove('show');
+    };
+
+    window.saveTournamentEvent = async function() {
+      const title = window.tourState.tournamentTitle || '단체전 대회';
+      const dateStr = new Date().toLocaleDateString('ko-KR');
+      const docId = String(Date.now());
+      const newArc = {
+        id: docId,
+        date: dateStr,
+        title: title,
+        data: JSON.parse(JSON.stringify(window.tourState))
+      };
+
+      try {
+        let arcs = JSON.parse(localStorage.getItem(TOURNAMENT_ARCHIVE_KEY) || '[]');
+        arcs.unshift(newArc);
+        localStorage.setItem(TOURNAMENT_ARCHIVE_KEY, JSON.stringify(arcs.slice(0, 50)));
+      } catch(e) {}
+
+      if (isCloudReady && db) {
+        try {
+          setSyncLamp('saving');
+          const docRef = doc(db, 'clubs', CLUB_ID, 'tournament_archives', docId);
+          await setDoc(docRef, newArc);
+          setSyncLamp('');
+          showToast(`[${title}] 파이어베이스 클라우드 저장 완료!`);
+          return;
+        } catch(e) {
+          console.warn("Cloud save archive error:", e);
+        }
+      }
+      showToast(`[${title}] 전적이 로컬에 저장되었습니다!`);
+    };
+
+    window.openArchiveModal = async function() {
+      const modal = document.getElementById('archiveModal');
+      const container = document.getElementById('archiveList');
+      if (!container) return;
+
+      container.innerHTML = '<div style="text-align: center; color: #64748b; font-size: 12px; padding: 20px 0;">목록 불러오는 중...</div>';
+      modal.classList.add('show');
+
+      let arcs = [];
+      if (isCloudReady && db) {
+        try {
+          const qSnap = await getDocs(collection(db, 'clubs', CLUB_ID, 'tournament_archives'));
+          qSnap.forEach(d => {
+            const data = d.data();
+            if (data && data.id && data.data) arcs.push(data);
+          });
+        } catch(e) {}
+      }
+
+      if (arcs.length === 0) {
+        try {
+          arcs = JSON.parse(localStorage.getItem(TOURNAMENT_ARCHIVE_KEY) || '[]');
+        } catch(e) {}
+      }
+
+      arcs.sort((a,b) => parseInt(b.id) - parseInt(a.id));
+
+      if (arcs.length === 0) {
+        container.innerHTML = '<div style="text-align: center; color: #94a3b8; font-size: 12px; padding: 20px 0;">저장된 단체전 기록이 없습니다.</div>';
+      } else {
+        container.innerHTML = arcs.map(arc => `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc;">
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 13px; font-weight: 900; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${arc.title}</div>
+              <div style="font-size: 10.5px; color: #64748b;">${arc.date}</div>
+            </div>
+            <div style="display: flex; gap: 4px; flex-shrink: 0;">
+              <button onclick="loadTournamentArchive('${arc.id}')" style="background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 6px; cursor: pointer;">불러오기</button>
+              <button onclick="deleteTournamentArchive('${arc.id}')" style="background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 6px; cursor: pointer;">삭제</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    };
+    window.closeArchiveModal = function() { document.getElementById('archiveModal').classList.remove('show'); };
+
+    window.loadTournamentArchive = async function(id) {
+      let target = null;
+      if (isCloudReady && db) {
+        try {
+          const qSnap = await getDocs(collection(db, 'clubs', CLUB_ID, 'tournament_archives'));
+          qSnap.forEach(d => {
+            const data = d.data();
+            if (data && data.id === id) target = data;
+          });
+        } catch(e) {}
+      }
+
+      if (!target) {
+        try {
+          let arcs = JSON.parse(localStorage.getItem(TOURNAMENT_ARCHIVE_KEY) || '[]');
+          target = arcs.find(a => a.id === id);
+        } catch(e) {}
+      }
+
+      if (target) {
+        window.tourState = JSON.parse(JSON.stringify(target.data));
+        saveTournamentState(true);
+        initControlsFromState();
+        renderAllTabs();
+        closeArchiveModal();
+        showToast(`'${target.title}' 불러오기 완료!`);
+      }
+    };
+
+    window.deleteTournamentArchive = async function(id) {
+      try {
+        if (isCloudReady && db) {
+          await deleteDoc(doc(db, 'clubs', CLUB_ID, 'tournament_archives', id));
+        }
+      } catch(e) {}
+
+      try {
+        let arcs = JSON.parse(localStorage.getItem(TOURNAMENT_ARCHIVE_KEY) || '[]');
+        arcs = arcs.filter(a => a.id !== id);
+        localStorage.setItem(TOURNAMENT_ARCHIVE_KEY, JSON.stringify(arcs));
+      } catch(e) {}
+
+      openArchiveModal();
+      showToast('저장 기록이 삭제되었습니다.');
+    };
+
+    // 사진 저장 및 보기 모달 관련 함수 (최대 300장 보관)
+    window.openPhotosModal = function() {
+      renderPhotosGrid();
+      document.getElementById('photosModal').classList.add('show');
+    };
+    window.closePhotosModal = function() {
+      document.getElementById('photosModal').classList.remove('show');
+    };
+
+    function getNormalizedPhotos() {
+      if (!window.tourState.photos) window.tourState.photos = [];
+      return window.tourState.photos.map((item, idx) => {
+        if (typeof item === 'string') {
+          return { id: 'old_' + idx, url: item, date: '이전 등록 사진', timestamp: 0 };
+        }
+        return item;
+      });
+    }
+
+    function renderPhotosGrid() {
+      const container = document.getElementById('photosGrid');
+      if (!container) return;
+
+      const photos = getNormalizedPhotos();
+      if (photos.length === 0) {
+        container.innerHTML = `<div style="text-align: center; color: #94a3b8; font-size: 12px; padding: 30px 0;">등록된 사진이나 문서가 없습니다.</div>`;
+        return;
+      }
+
+      const dateGroups = {};
+      photos.forEach(item => {
+        const d = item.date || '기타';
+        if (!dateGroups[d]) dateGroups[d] = [];
+        dateGroups[d].push(item);
+      });
+
+      let html = '';
+      Object.keys(dateGroups).forEach((dateKey) => {
+        html += `
+          <div style="text-align: center; margin: 10px 0 6px 0;">
+            <span style="font-size: 11px; font-weight: 800; color: #64748b; letter-spacing: -0.2px;">
+              ────── ${dateKey} ──────
+            </span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 6px;">
+        `;
+
+        dateGroups[dateKey].forEach(photo => {
+          const photoUrl = photo.url || photo;
+          const photoId = photo.id || '';
+          html += `
+            <div style="position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 1; border: 1px solid #cbd5e1; background: #0f172a;">
+              <img src="${photoUrl}" onclick="showPhotoLightbox('${photoUrl}')" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" />
+              <button onclick="deletePhoto('${photoId}')" style="position: absolute; top: 3px; right: 3px; background: rgba(225, 29, 72, 0.88); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 1px 3px rgba(0,0,0,0.4);">✕</button>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    window.handlePhotoUpload = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 800;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.72);
+          if (!window.tourState.photos) window.tourState.photos = [];
+
+          const now = new Date();
+          const days = ['일', '월', '화', '수', '목', '금', '토'];
+          const dateStr = `${now.getFullYear()}. ${now.getMonth() + 1}. ${now.getDate()}(${days[now.getDay()]})`;
+
+          const newPhoto = {
+            id: 'p_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+            url: compressedBase64,
+            date: dateStr,
+            timestamp: Date.now()
+          };
+
+          window.tourState.photos.unshift(newPhoto);
+          if (window.tourState.photos.length > 300) window.tourState.photos.pop();
+
+          saveTournamentState(true);
+          renderPhotosGrid();
+          showToast('사진이 등록되었습니다.');
+          event.target.value = '';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.deletePhoto = function(photoId) {
+      if (!window.tourState.photos) return;
+      window.tourState.photos = window.tourState.photos.filter((p, idx) => {
+        if (typeof p === 'string') return ('old_' + idx) !== photoId;
+        return p.id !== photoId;
+      });
+      saveTournamentState(true);
+      renderPhotosGrid();
+      showToast('사진이 삭제되었습니다.');
+    };
+
+    window.showPhotoLightbox = function(src) {
+      const img = document.getElementById('lightboxImg');
+      if (img) img.src = src;
+      document.getElementById('photoLightbox').classList.add('show');
+    };
+    window.closePhotoLightbox = function() {
+      document.getElementById('photoLightbox').classList.remove('show');
+    };
+
+    function initControlsFromState() {
+      const titleInput = document.getElementById('tournamentTitle');
+      if (titleInput) titleInput.value = window.tourState.tournamentTitle || '';
+      const mfSel = document.getElementById('matchFormatSelect');
+      if (mfSel) mfSel.value = window.tourState.matchFormat || '3doubles';
+      const tSel = document.getElementById('teamSelect');
+      if (tSel) tSel.value = window.tourState.currentTeam || 'A';
+      const rSel = document.getElementById('roundSelect');
+      if (rSel) rSel.value = window.tourState.currentRound || 'pre1';
+    }
+
+    function setupTournamentPresence() {
+      if (!isCloudReady || !db) return;
+      const presenceRef = doc(db, 'clubs', CLUB_ID, 'presence_tournament', currentUserId);
+      const updatePresence = async () => {
+        try { await setDoc(presenceRef, { lastSeen: Date.now() }); } catch(e) {}
+      };
+      updatePresence();
+      setInterval(updatePresence, 20000);
+
+      onSnapshot(collection(db, 'clubs', CLUB_ID, 'presence_tournament'), (snap) => {
+        const now = Date.now();
+        let cnt = 0;
+        snap.forEach(d => {
+          const val = d.data();
+          if (val && val.lastSeen && (now - val.lastSeen < 45000)) cnt++;
+        });
+        const badge = document.getElementById('tourUserCountBadge');
+        if (badge) badge.innerText = `${Math.max(cnt, 1)}명`;
+      }, (err) => {});
+    }
+
+    async function initTournamentCloudSync() {
+      if (!auth || !db) {
+        setSyncLamp('offline');
+        return;
+      }
+      try {
+        setSyncLamp('saving');
+        const userCred = await signInAnonymously(auth);
+        if (userCred && userCred.user) {
+          currentUserId = userCred.user.uid;
+        }
+        isCloudReady = true;
+        setSyncLamp('');
+        setupTournamentPresence();
+
+        const docRef = doc(db, 'clubs', CLUB_ID, 'tournament_live', 'current');
+        onSnapshot(docRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const cloudData = docSnap.data();
+            if (cloudData) {
+              isRemoteUpdate = true;
+              window.tourState = Object.assign(window.tourState, cloudData);
+              if (!window.tourState.photos) window.tourState.photos = [];
+              initControlsFromState();
+              renderAllTabs();
+              isRemoteUpdate = false;
+            }
+          } else {
+            saveTournamentState(true);
+          }
+        }, (err) => {
+          console.warn("Tournament snapshot error:", err);
+          isCloudReady = false;
+          setSyncLamp('offline');
+        });
+      } catch(e) {
+        console.warn("Tournament cloud sync error:", e);
+        isCloudReady = false;
+        setSyncLamp('offline');
+      }
+    }
+
+    window.onload = function() {
+      updateLiveClock();
+      applyTheme(localStorage.getItem('sejong_user_theme') || 'summer');
+      initControlsFromState();
+      renderAllTabs();
+      initTournamentCloudSync();
+    };
+  </script>
+</body>
+</html>
